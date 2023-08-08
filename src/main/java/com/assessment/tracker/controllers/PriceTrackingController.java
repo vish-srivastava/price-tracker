@@ -5,6 +5,7 @@ import com.assessment.tracker.models.currency.Crypto;
 import com.assessment.tracker.models.AvailableCurrencyResponse;
 import com.assessment.tracker.models.HistoricalPriceRequest;
 import com.assessment.tracker.models.currency.CurrencyType;
+import com.assessment.tracker.models.currency.Federal;
 import com.assessment.tracker.services.PriceTrackingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,9 +38,15 @@ public class PriceTrackingController {
     @GetMapping("/available-currencies")
     public ResponseEntity<AvailableCurrencyResponse> fetchAvailableCryptoCurrencies(
             @RequestParam(value = "currencyType", defaultValue = "CRYPTO") CurrencyType currencyType) {
-        Map<String, String> availableCurrencies = Arrays.stream(Crypto.values())
-                .collect(Collectors.toMap(Crypto::getCurrencyAbbreviation, Crypto::getDisplayName));
-        return ResponseEntity.ok(new AvailableCurrencyResponse(availableCurrencies));
+        Map<String, String> availableCryptoCurrencies;
+        if (currencyType.equals(CurrencyType.CRYPTO)) {
+            availableCryptoCurrencies = Arrays.stream(Crypto.values())
+                    .collect(Collectors.toMap(Crypto::getCurrencyAbbreviation, Crypto::getDisplayName));
+        } else {
+            availableCryptoCurrencies = Arrays.stream(Federal.values())
+                    .collect(Collectors.toMap(Federal::getCurrencyAbbreviation, Federal::getDisplayName));
+        }
+        return ResponseEntity.ok(new AvailableCurrencyResponse(availableCryptoCurrencies));
     }
 
     /**
