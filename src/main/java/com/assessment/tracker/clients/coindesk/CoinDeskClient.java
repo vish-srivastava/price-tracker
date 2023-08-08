@@ -8,12 +8,27 @@ import org.springframework.cloud.openfeign.FeignClient;
 @FeignClient(name = "coinDeskClient", url = "${coindesk.api.url}", configuration = CoinDeskFeignConfig.class)
 public interface CoinDeskClient {
 
+    /**
+     * Used for fetching historical BTC Price only.
+     * @param start : in YYYY-MM-DD format.
+     * @param end : in YYYY-MM-DD format.
+     * @param currency : target currency for conversion.
+     * @return
+     */
     @RequestLine("GET /v1/bpi/historical/close.json?start={start}&end={end}&currency={currency}")
-    Object getHistoricalData(
+    Object getHistoricalBitcoinPriceData(
             @Param("start") String start,
             @Param("end") String end,
             @Param("currency") String currency
     );
+
+    /**
+     * Used to convert one currency to another
+     * @param from : in YYYY-MM-DD format.
+     * @param to : in YYYY-MM-DD format.
+     * @param amount : amount to be converted.
+     * @return
+     */
 
     @RequestLine("GET /v1/bpi/convert.json?from={from}&to={to}&amount={amount}")
     Object convertCurrency(
