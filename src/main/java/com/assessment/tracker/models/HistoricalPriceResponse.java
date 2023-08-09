@@ -1,14 +1,25 @@
 package com.assessment.tracker.models;
 
-import com.assessment.tracker.models.currency.Crypto;
+import com.assessment.tracker.clients.coindesk.models.HistoricalDataResponse;
+import com.assessment.tracker.common.LocalDateSerializer;
 import com.assessment.tracker.models.currency.CurrencyType;
-import com.assessment.tracker.models.currency.Federal;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
+@AllArgsConstructor
+@Builder
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class HistoricalPriceResponse {
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private CurrencyType currencyType;
+    private String currencyName;
+    private String currencySymbol;
+    private String currencyDisplayName;
+    private String minimaDate;
+    private String maximaDate;
+    private HistoricalDataResponse response;
 }
+

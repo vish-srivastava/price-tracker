@@ -1,6 +1,5 @@
 package com.assessment.tracker.services.factories;
 
-import com.assessment.tracker.models.currency.Currency;
 import com.assessment.tracker.models.currency.CurrencyType;
 import com.assessment.tracker.services.PriceTracker;
 import org.apache.commons.lang3.NotImplementedException;
@@ -23,18 +22,19 @@ public class PriceTrackingFactory {
         this.allPriceTrackers = currencyPriceTrackers;
     }
 
-    private Map<Currency, PriceTracker> fetchPriceTrackers(CurrencyType currencyType) {
-        return allPriceTrackers.stream().collect(Collectors.toMap(PriceTracker::getCurrency, Function.identity()));
+    private Map<String, PriceTracker> fetchPriceTrackers(CurrencyType currencyType) {
+        return allPriceTrackers.stream().filter(priceTracker -> priceTracker.getCurrencyType().equals(currencyType))
+                .collect(Collectors.toMap(PriceTracker::getCurrency, Function.identity()));
     }
 
-    public PriceTracker fetchPriceTracker(Currency currency, CurrencyType currencyType) {
-        Map<Currency, PriceTracker> trackers = fetchPriceTrackers(currencyType);
+    public PriceTracker fetchPriceTracker(String currency, CurrencyType currencyType) {
+        Map<String, PriceTracker> trackers = fetchPriceTrackers(currencyType);
         if (CollectionUtils.isEmpty(trackers)) {
-            throw new NotImplementedException("No Implementations found :  Currency Type" + currencyType.name() + " not supported yet");
+            throw new NotImplementedException("No Implementations found : " + currencyType + " Currency Type not supported yet");
         }
         PriceTracker tracker = trackers.get(currency);
         if (Objects.isNull(tracker)) {
-            throw new NotImplementedException("No Implementations found :  Currency " + currency.getDisplayName() + " not supported yet");
+            throw new NotImplementedException("No Implementations found : " + currency + " Currency not supported yet");
         }
         return tracker;
     }
