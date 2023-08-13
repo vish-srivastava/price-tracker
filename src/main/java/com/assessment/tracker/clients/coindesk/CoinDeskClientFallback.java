@@ -22,4 +22,9 @@ public class CoinDeskClientFallback implements CoinDeskClient {
     public String convertCurrency(String from, String to, double amount) {
         throw new RuntimeException("CoinDesk API unavailable : Fallack triggered");
     }
+
+    @Override
+    public String getSupportedCurrencies() {
+        throw new RuntimeException("CoinDesk API unavailable : Fallack triggered");
+    }
 }
