@@ -1,13 +1,16 @@
 package com.assessment.tracker.models;
 
-import com.assessment.tracker.models.currency.Crypto;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Map;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class AvailableCurrencyResponse {
     private Map<String, String> availableCurrencies;
 }

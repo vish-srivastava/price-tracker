@@ -1,8 +1,11 @@
-package com.assessment.tracker.clients.coindesk.models;
+package com.assessment.tracker.models.bitcoin;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CurrencyConversionResponse {
     private String from;
     private String to;

@@ -1,7 +1,7 @@
 package com.assessment.tracker.services.implementations;
 
 import com.assessment.tracker.clients.coindesk.CoinDeskClient;
-import com.assessment.tracker.clients.coindesk.models.HistoricalDataResponse;
+import com.assessment.tracker.models.bitcoin.HistoricalDataResponse;
 import com.assessment.tracker.models.HistoricalPriceRequest;
 import com.assessment.tracker.models.HistoricalPriceResponse;
 import com.assessment.tracker.models.currency.Crypto;
@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.net.http.HttpConnectTimeoutException;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Optional;
@@ -30,7 +31,7 @@ public class BitcoinPriceTracker implements PriceTracker {
     }
 
     @Override
-    public HistoricalPriceResponse fetchHistoricalPriceData(HistoricalPriceRequest request) {
+    public HistoricalPriceResponse fetchHistoricalPriceData(HistoricalPriceRequest request) throws HttpConnectTimeoutException {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String response = coinDeskClient.getHistoricalBitcoinPriceData(request.getStartDate().format(dateTimeFormatter), request.getEndDate().format(dateTimeFormatter), request.getTargetCurrency());
 

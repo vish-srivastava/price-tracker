@@ -4,8 +4,10 @@ import com.assessment.tracker.models.HistoricalPriceRequest;
 import com.assessment.tracker.models.HistoricalPriceResponse;
 import com.assessment.tracker.models.currency.CurrencyType;
 
+import java.net.http.HttpConnectTimeoutException;
+
 public interface PriceTracker {
-    HistoricalPriceResponse fetchHistoricalPriceData(HistoricalPriceRequest request);
+    HistoricalPriceResponse fetchHistoricalPriceData(HistoricalPriceRequest request) throws HttpConnectTimeoutException;
 
     String getCurrency();
 

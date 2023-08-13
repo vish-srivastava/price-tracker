@@ -5,6 +5,8 @@ import com.assessment.tracker.models.HistoricalPriceResponse;
 import com.assessment.tracker.services.factories.PriceTrackingFactory;
 import org.springframework.stereotype.Service;
 
+import java.net.http.HttpConnectTimeoutException;
+
 @Service
 public class PriceTrackingService {
 
@@ -20,7 +22,7 @@ public class PriceTrackingService {
      * @param request : DTO which contains currency type, currency ,start and end date.
      * @return historical prices.
      */
-    public HistoricalPriceResponse fetchHistoricalData(HistoricalPriceRequest request) {
+    public HistoricalPriceResponse fetchHistoricalData(HistoricalPriceRequest request) throws HttpConnectTimeoutException {
         return priceTrackingFactory.fetchPriceTracker(request.getCurrency(), request.getCurrencyType()).fetchHistoricalPriceData(request);
     }
 }

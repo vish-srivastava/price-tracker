@@ -1,15 +1,14 @@
 package com.assessment.tracker.controllers;
 
-import com.assessment.tracker.models.HistoricalPriceResponse;
-import com.assessment.tracker.models.currency.Crypto;
 import com.assessment.tracker.models.AvailableCurrencyResponse;
 import com.assessment.tracker.models.HistoricalPriceRequest;
+import com.assessment.tracker.models.HistoricalPriceResponse;
+import com.assessment.tracker.models.currency.Crypto;
 import com.assessment.tracker.models.currency.CurrencyType;
 import com.assessment.tracker.models.currency.Federal;
 import com.assessment.tracker.services.PriceTrackingService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.NotImplementedException;
-import org.apache.http.HttpException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +33,7 @@ public class PriceTrackingController {
     /**
      * fetches historical price data for a data range and currency
      *
-     * @param historicalPriceRequest
+     * @param historicalPriceRequest : request DTO for price tracking
      * @return
      */
     @PostMapping("/historical")
@@ -44,7 +43,7 @@ public class PriceTrackingController {
             return response.map(ResponseEntity::ok).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
         } catch (NotImplementedException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        } catch (RuntimeException runtimeException) {
+        } catch (RuntimeException | HttpConnectTimeoutException runtimeException) {
             return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(runtimeException.getMessage());
         }
 

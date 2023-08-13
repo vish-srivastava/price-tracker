@@ -1,12 +1,13 @@
 package com.assessment.tracker.clients.coindesk;
 
 import com.assessment.tracker.clients.coindesk.config.CoinDeskFeignConfig;
-import com.assessment.tracker.clients.coindesk.models.HistoricalDataResponse;
 import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.net.http.HttpConnectTimeoutException;
 
 @Headers("Accept: application/json")
 @FeignClient(name = "coinDeskClient", url = "${coindesk.api.url}", configuration = CoinDeskFeignConfig.class, fallback = CoinDeskClientFallback.class)
@@ -27,7 +28,7 @@ public interface CoinDeskClient {
             @RequestParam("start") String start,
             @RequestParam("end") String end,
             @RequestParam("currency") String currency
-    );
+    ) throws HttpConnectTimeoutException;
 
     /**
      * Used to convert one currency to another
@@ -45,4 +46,8 @@ public interface CoinDeskClient {
             @RequestParam("to") String to,
             @RequestParam("amount") double amount
     );
+
+    @Headers("Accept: application/json")
+    @RequestMapping(method = RequestMethod.GET, value = "/v1/bpi/supported-currencies.json", headers = {"Accept=application/json"})
+    String getSupportedCurrencies();
 }

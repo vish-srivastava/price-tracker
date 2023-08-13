@@ -22,7 +22,7 @@ public class PriceTrackingFactory {
         this.allPriceTrackers = currencyPriceTrackers;
     }
 
-    private Map<String, PriceTracker> fetchPriceTrackers(CurrencyType currencyType) {
+    public Map<String, PriceTracker> fetchPriceTrackers(CurrencyType currencyType) {
         return allPriceTrackers.stream().filter(priceTracker -> priceTracker.getCurrencyType().equals(currencyType))
                 .collect(Collectors.toMap(PriceTracker::getCurrency, Function.identity()));
     }

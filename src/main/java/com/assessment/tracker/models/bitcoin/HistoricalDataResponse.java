@@ -1,11 +1,14 @@
-package com.assessment.tracker.clients.coindesk.models;
+package com.assessment.tracker.models.bitcoin;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
+import lombok.*;
 
 import java.util.Map;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HistoricalDataResponse {
     private Map<String, Double> bpi;
