@@ -21,7 +21,6 @@ class CoinDeskClientFallbackTest {
         String start = "2022-01-01";
         String end = "2022-02-01";
         String currency = "USD";
-
         assertThrows(HttpConnectTimeoutException.class,
                 () -> coinDeskClientFallback.getHistoricalBitcoinPriceData(start, end, currency));
     }
@@ -31,8 +30,15 @@ class CoinDeskClientFallbackTest {
         String from = "USD";
         String to = "EUR";
         double amount = 100.0;
-
         assertThrows(RuntimeException.class,
                 () -> coinDeskClientFallback.convertCurrency(from, to, amount));
     }
+
+    @Test
+    void testgetSupportedCurrencies() {
+        assertThrows(RuntimeException.class,
+                () -> coinDeskClientFallback.getSupportedCurrencies());
+    }
+
+
 }

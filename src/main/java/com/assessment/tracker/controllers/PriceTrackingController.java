@@ -1,8 +1,9 @@
 package com.assessment.tracker.controllers;
 
-import com.assessment.tracker.models.AvailableCurrencyResponse;
+
 import com.assessment.tracker.models.HistoricalPriceRequest;
 import com.assessment.tracker.models.HistoricalPriceResponse;
+import com.assessment.tracker.models.currency.AvailableCurrencyResponse;
 import com.assessment.tracker.models.currency.Crypto;
 import com.assessment.tracker.models.currency.CurrencyType;
 import com.assessment.tracker.models.currency.Federal;
@@ -46,27 +47,22 @@ public class PriceTrackingController {
         } catch (RuntimeException | HttpConnectTimeoutException runtimeException) {
             return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(runtimeException.getMessage());
         }
-
     }
 
     /**
      * Get list of available currencies in system .
      *
-     * @param currencyType : FEDERAL or CRYPTO
-     * @return : list of available currencies in the system
+     * @return : list of available currencies and their countries in the system
      */
     @GetMapping("/available-currencies")
-    public ResponseEntity<AvailableCurrencyResponse> fetchAvailableCryptoCurrencies(
-            @RequestParam(value = "currencyType", defaultValue = "CRYPTO") CurrencyType currencyType) {
-        Map<String, String> availableCryptoCurrencies;
-        if (currencyType.equals(CurrencyType.CRYPTO)) {
-            availableCryptoCurrencies = Arrays.stream(Crypto.values())
-                    .collect(Collectors.toMap(Crypto::getCurrencyAbbreviation, Crypto::getDisplayName));
-        } else {
-            availableCryptoCurrencies = Arrays.stream(Federal.values())
-                    .collect(Collectors.toMap(Federal::getCurrencyAbbreviation, Federal::getDisplayName));
+    public ResponseEntity<?> fetchAvailableCryptoCurrencies() {
+        try {
+            return priceTrackingService.getAvailableCurrencies().map(ResponseEntity::ok).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        } catch (NotImplementedException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        } catch (RuntimeException runtimeException) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(runtimeException.getMessage());
         }
-        return ResponseEntity.ok(new AvailableCurrencyResponse(availableCryptoCurrencies));
     }
 
 

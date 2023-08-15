@@ -80,6 +80,16 @@
             <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -93,13 +103,11 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                         </exclude>
+                        <exclude>**/models/**/*</exclude>
                         <exclude>
                             <groupId>com.assessment</groupId>
                             <artifactId>tracker</artifactId>
                         </exclude>
-                        <exclude>com/assessment/tracker/models/**</exclude>
-                        <exclude>com/assessment/tracker/clients/coindesk/config/**</exclude>
-                        <exclude>com/assessment/tracker/clients/coindesk/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>

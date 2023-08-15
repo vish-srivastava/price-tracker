@@ -38,4 +38,11 @@ public class PriceTrackingFactory {
         }
         return tracker;
     }
+
+    public PriceTracker getDefaultPriceTracker() {
+        return allPriceTrackers.stream()
+                .filter(PriceTracker::isDefault)
+                .findFirst()
+                .orElseThrow(() -> new NotImplementedException("No Default Implementations found"));
+    }
 }
