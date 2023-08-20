@@ -45,7 +45,8 @@ List the software, tools, or dependencies that need to be installed before setti
        java -jar .\target\tracker-0.0.1-SNAPSHOT.jar
    ```
 
-4. Check Test Coverage using Jacoco : 
+4. Check Test Coverage using Jacoco :
+     Tests are written using Junit & Mockito
    ```bash 
         mvn clean -U test jacoco:report
    ```
