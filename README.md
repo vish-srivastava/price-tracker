@@ -1,1 +1,74 @@
-# price-tracker
+# price-tracker backend app
+
+
+
+## Description
+
+This is a Java Spring Boot microservice project that serves as the purpose of price tracking.
+
+## Features
+
+List the key features of your microservice, such as:
+
+- RESTful API endpoints
+- Database integration (e.g., JPA, Hibernate)
+- Authentication and authorization
+- Logging
+- Error handling
+- Swagger documentation
+- Testing (unit tests, integration tests)
+- Docker containerization
+
+## Prerequisites
+
+List the software, tools, or dependencies that need to be installed before setting up your project. For example:
+
+- Java 8 or higher
+- Maven
+- Docker (for containerization)
+- Your preferred IDE (e.g., IntelliJ IDEA, Eclipse)
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   https://github.com/vish-srivastava/price-tracker.git
+
+2. Resolve maven dependencies : 
+   ```bash 
+    mvn clean install
+   ```
+
+3. Start the Tomcat Server on port 8080 
+   ```bash 
+       java -jar .\target\tracker-0.0.1-SNAPSHOT.jar
+   ```
+
+4. Check Test Coverage using Jacoco : 
+   ```bash 
+        mvn clean -U test jacoco:report
+   ```
+   We can find the test report in 
+   ```target/site/jacoco/index.html``` 
+   Import this in any browser to check overall test coverage
+
+
+## API Documentation
+
+Swagger  : http://localhost:8080/swagger-ui/index.html#/
+
+## HTTP Feign Library
+
+I have used Netlfix's open source Feign Cloud Library to abstract out implementations of :
+- Downstraem/External HTTP Calls
+- Making it easier yet highly customizable HTTP/HTTPS calls
+- Which is highly extensible & configrable
+- Easy to implement
+
+## CI/CD : 
+   Added ```actions.yml``` for Github actions for running pipeline jobs for build & test
+   Added ```Dockerfile``` for deployment server image configuration 
+
+## Architecture of the Application :
+

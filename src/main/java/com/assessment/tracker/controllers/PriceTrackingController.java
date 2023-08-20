@@ -3,22 +3,16 @@ package com.assessment.tracker.controllers;
 
 import com.assessment.tracker.models.HistoricalPriceRequest;
 import com.assessment.tracker.models.HistoricalPriceResponse;
-import com.assessment.tracker.models.currency.AvailableCurrencyResponse;
-import com.assessment.tracker.models.currency.Crypto;
-import com.assessment.tracker.models.currency.CurrencyType;
-import com.assessment.tracker.models.currency.Federal;
 import com.assessment.tracker.services.PriceTrackingService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpConnectTimeoutException;
-import java.util.Arrays;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Log4j2
@@ -37,7 +31,7 @@ public class PriceTrackingController {
      * @param historicalPriceRequest : request DTO for price tracking
      * @return
      */
-    @PostMapping("/historical")
+    @PostMapping(value = "/historical", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> fetchHistoricalData(@RequestBody HistoricalPriceRequest historicalPriceRequest) {
         try {
             Optional<HistoricalPriceResponse> response = Optional.ofNullable(priceTrackingService.fetchHistoricalData(historicalPriceRequest));
@@ -54,7 +48,7 @@ public class PriceTrackingController {
      *
      * @return : list of available currencies and their countries in the system
      */
-    @GetMapping("/available-currencies")
+    @GetMapping(value = "/available-currencies", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> fetchAvailableCryptoCurrencies() {
         try {
             return priceTrackingService.getAvailableCurrencies().map(ResponseEntity::ok).orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());

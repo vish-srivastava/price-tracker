@@ -103,11 +103,6 @@
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
                         </exclude>
-                        <exclude>**/models/**/*</exclude>
-                        <exclude>
-                            <groupId>com.assessment</groupId>
-                            <artifactId>tracker</artifactId>
-                        </exclude>
                     </excludes>
                 </configuration>
             </plugin>
