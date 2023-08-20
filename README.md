@@ -53,6 +53,10 @@ List the software, tools, or dependencies that need to be installed before setti
    ```target/site/jacoco/index.html``` 
    Import this in any browser to check overall test coverage
 
+   Test Coverage Screenshot :
+   
+![Screenshot 2023-08-20 171853](https://github.com/vish-srivastava/price-tracker/assets/24750869/bb7309a5-2e23-4ef1-805e-57c0e29fb931)
+
 
 ## API Documentation
 
@@ -72,3 +76,4 @@ I have used Netlfix's open source Feign Cloud Library to abstract out implementa
 
 ## Architecture of the Application :
 
+![PT rch drawio](https://github.com/vish-srivastava/price-tracker/assets/24750869/1b5e4acd-97d9-49f2-a720-5ad9377a5a57)
