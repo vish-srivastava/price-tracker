@@ -62,6 +62,10 @@ List the software, tools, or dependencies that need to be installed before setti
 
 Swagger  : http://localhost:8080/swagger-ui/index.html#/
 
+Sample :
+ 
+![swagger](https://github.com/vish-srivastava/price-tracker/assets/24750869/0701b3c5-2704-479d-9fc9-e590c3990f33)
+
 ## HTTP Feign Library
 
 I have used Netlfix's open source Feign Cloud Library to abstract out implementations of :
